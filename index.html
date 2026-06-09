@@ -1,142 +1,123 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio — Kylian LEBIGOT</title>
-
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome 6 -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="assets/css/style.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accueil — Kylian Lebigot | BTS SIO SLAM 2026</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Sidebar Navigation -->
-<div class="sidebar" id="sidebar">
-    <div class="sidebar-brand">
-        <div class="brand-icon">
-            <i class="fa-solid fa-terminal"></i>
-        </div>
-        <div class="brand-text">
-            <span class="brand-name">Kylian LEBIGOT</span>
-            <span class="brand-sub">BTS SIO SLAM · 2026</span>
-        </div>
-        <button class="theme-toggle-btn" id="themeToggleBtn" title="Changer le thème">
-            <i class="fa-solid fa-moon" id="themeIcon"></i>
-            <span id="themeLabel">Mode sombre</span>
-        </button>
-    </div>
+<div id="nav-placeholder"></div>
 
-    <nav class="sidebar-nav">
-        <a href="accueil.html" class="nav-link active">
-            <i class="fa-solid fa-house"></i>
-            <span>Accueil</span>
-        </a>
-        <a href="competences.html" class="nav-link">
-            <i class="fa-solid fa-list-check"></i>
-            <span>Compétences</span>
-        </a>
-        <a href="realisations.html" class="nav-link">
-            <i class="fa-solid fa-diagram-project"></i>
-            <span>Réalisations</span>
-        </a>
-        <a href="docs.html" class="nav-link">
-            <i class="fa-solid fa-folder-open"></i>
-            <span>Documents</span>
-        </a>
-        <a href="bilan.html" class="nav-link">
-            <i class="fa-solid fa-chart-line"></i>
-            <span>Bilan</span>
-        </a>
-    </nav>
-
-    <div class="sidebar-footer">
-        <span class="badge-option">Option SLAM</span>
-    </div>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-avatar">KL</div>
+  <h1>Kylian Lebigot</h1>
+  <p class="sub">BTS Services Informatiques aux Organisations — Option SLAM</p>
+  <p class="school">Lycée Saint-Paul Bourdon Blanc · Session 2026</p>
+  <div class="hero-chips">
+    <span class="hero-chip">💻 Développement web & applicatif</span>
+    <span class="hero-chip">🛠️ Administration système Linux</span>
+    <span class="hero-chip">📋 Gestion de parc GLPI / OCS</span>
+  </div>
+  <div class="hero-ctas">
+    <a href="projets.html" class="btn-ghost">Voir mes projets →</a>
+  </div>
 </div>
 
-<!-- Mobile Top Bar -->
-<div class="mobile-topbar">
-    <button class="burger-btn" id="burgerBtn">
-        <i class="fa-solid fa-bars"></i>
-    </button>
-    <span class="mobile-title">Portfolio BTS SIO</span>
-    <span class="badge-option-sm">SLAM</span>
+<div class="page-content">
+
+  <!-- MÉTRIQUES -->
+  <div class="grid-4 mb-2-5rem">
+    <div class="metric-card"><div class="num">6</div><div class="lbl">Blocs de compétences</div></div>
+    <div class="metric-card"><div class="num">7</div><div class="lbl">Projets réalisés</div></div>
+    <div class="metric-card"><div class="num">2</div><div class="lbl">Années de formation</div></div>
+    <div class="metric-card"><div class="num">2026</div><div class="lbl">Session d'examen</div></div>
+  </div>
+
+  <!-- À PROPOS + INFO -->
+  <div class="about-grid mb-2-5rem">
+    <div class="card">
+      <div class="section-label">Présentation</div>
+      <p class="body-copy">
+        Étudiant en BTS SIO option SLAM au Lycée Saint-Paul Bourdon Blanc, je me passionne pour le développement web et l'administration système. Ce portfolio présente l'ensemble de mes réalisations professionnelles et compétences acquises durant ma formation.
+      </p>
+      <div class="flow-wrap">
+        <span class="tag tag-blue">PHP / MySQL</span>
+        <span class="tag tag-blue">JavaScript</span>
+        <span class="tag tag-blue">HTML / CSS</span>
+        <span class="tag tag-green">Linux Ubuntu</span>
+        <span class="tag tag-green">Apache / MariaDB</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">Informations</div>
+      <div class="info-row"><span class="lbl">Formation</span><span class="val">BTS SIO — SLAM</span></div>
+      <div class="info-row"><span class="lbl">Établissement</span><span class="val">Lycée Saint-Paul Bourdon Blanc</span></div>
+      <div class="info-row"><span class="lbl">Session</span><span class="val">2026</span></div>
+      <div class="info-row">
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION RAPIDE -->
+  <div class="section-label">Explorer le portfolio</div>
+  <h2 class="section-title">Navigation rapide</h2>
+  <div class="grid-2">
+
+    <a href="competences.html" class="quick-card">
+      <div class="qicon qicon-blue">🎯</div>
+      <div>
+        <h3>Compétences</h3>
+        <p>Les 6 blocs du référentiel BTS SIO SLAM</p>
+      </div>
+      <span class="quick-arrow">→</span>
+    </a>
+
+    <a href="projets.html" class="quick-card">
+      <div class="qicon qicon-purple">🚀</div>
+      <div>
+        <h3>Projets</h3>
+        <p>Portfolio, Threadly, GLPI, OCS, Dramaltech, ACABA</p>
+      </div>
+      <span class="quick-arrow">→</span>
+    </a>
+
+    <a href="certifications.html" class="quick-card">
+      <div class="qicon qicon-orange">🏆</div>
+      <div>
+        <h3>Certifications</h3>
+        <p>6 certifications · ~150h · fCC, Pix, ANSSI, Voltaire</p>
+      </div>
+      <span class="quick-arrow">→</span>
+    </a>
+
+    <a href="documentation.html" class="quick-card">
+      <div class="qicon qicon-teal">📄</div>
+      <div>
+        <h3>Documentation technique</h3>
+        <p>Procédures d'installation GLPI et OCS Inventory</p>
+      </div>
+      <span class="quick-arrow">→</span>
+    </a>
+
+    <a href="veille.html" class="quick-card">
+      <div class="qicon qicon-orange">🔍</div>
+      <div>
+        <h3>Veille technologique</h3>
+        <p>Fiches de veille générées par IA en temps réel</p>
+      </div>
+      <span class="quick-arrow">→</span>
+    </a>
+
+  </div>
+
 </div>
 
-<!-- Overlay -->
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-<!-- Main Content -->
-<div class="main-content" id="mainContent">
-
-<div class="page-header fade-in">
-    <div class="hero-section">
-        <div class="hero-tag">
-            <i class="fa-solid fa-terminal"></i>
-            BTS SIO · SESSION 2026
-        </div>
-        <h1 class="page-title"> Kylian LEBIGOT </h1>
-        <p class="hero-role">Étudiant BTS Services Informatiques aux Organisations — Option SLAM<br>
-            Développeur d'applications · 2<sup>ème</sup> année</p>
-        <div class="hero-meta">
-            <div class="hero-meta-item">
-                <i class="fa-solid fa-building-columns"></i>
-                <span>Saint Paul Bourdon Blanc</span>
-            </div>
-            <div class="hero-meta-item">
-                <i class="fa-solid fa-code-branch"></i>
-                <span>Option SLAM</span>
-            </div>
-            <div class="hero-meta-item">
-                <i class="fa-solid fa-calendar-days"></i>
-                <span>Session 2026</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row g-4 mb-4">
-    <div class="col-md-6 col-lg-3 fade-in">
-        <a href="competences.html" class="card-dark d-block text-decoration-none">
-            <div class="card-icon"><i class="fa-solid fa-list-check"></i></div>
-            <h5>6 Compétences</h5>
-            <p>Toutes les compétences du référentiel BTS SIO couvertes dans ce portfolio.</p>
-        </a>
-    </div>
-    <div class="col-md-6 col-lg-3 fade-in">
-        <a href="realisations.html" class="card-dark d-block text-decoration-none">
-            <div class="card-icon"><i class="fa-solid fa-diagram-project"></i></div>
-            <h5>Réalisations</h5>
-            <p>Projets réalisés en formation et en milieu professionnel.</p>
-        </a>
-    </div>
-    <div class="col-md-6 col-lg-3 fade-in">
-        <a href="docs.html" class="card-dark d-block text-decoration-none">
-            <div class="card-icon"><i class="fa-solid fa-folder-open"></i></div>
-            <h5>Documents</h5>
-            <p>Tous les livrables, rapports et preuves de compétences.</p>
-        </a>
-    </div>
-    <div class="col-md-6 col-lg-3 fade-in">
-        <a href="bilan.html" class="card-dark d-block text-decoration-none">
-            <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
-            <h5>Bilan</h5>
-            <p>Synthèse des compétences et développement professionnel.</p>
-        </a>
-    </div>
-</div>
-
-</div><!-- /.main-content -->
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Custom JS -->
-<script src="assets/js/main.js"></script>
+<div id="footer-placeholder"></div>
+<script src="nav.js"></script>
+<script>renderNav('index.html'); renderFooter();</script>
 </body>
 </html>

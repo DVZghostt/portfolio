@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Annexe — Threadly | Kylian Lebigot</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="annexe-page">
+
+<div class="header">
+  <h1>Annexe — Threadly (Site e-commerce de t-shirts)</h1>
+  <p>BTS SIO option SLAM · Kylian Lebigot · Session 2026</p>
+</div>
+
+<div class="meta-grid">
+  <div class="meta-box"><div class="k">Projet</div><div class="v">Threadly</div></div>
+  <div class="meta-box"><div class="k">Période</div><div class="v">2025 – 2026</div></div>
+  <div class="meta-box"><div class="k">Contexte</div><div class="v">Formation initiale</div></div>
+  <div class="meta-box"><div class="k">Type</div><div class="v">Application web e-commerce</div></div>
+  <div class="meta-box"><div class="k">Technologies</div><div class="v">PHP · MySQL · Bootstrap · HTML/CSS</div></div>
+  <div class="meta-box"><div class="k">Statut</div><div class="v">Réalisé ✅</div></div>
+</div>
+
+<h2>1. Présentation du projet</h2>
+<p>Threadly est une application web e-commerce de vente de t-shirts développée en PHP et MySQL. Le projet illustre la conception et le développement d'une plateforme de commerce électronique complète, avec gestion de catalogue, panier d'achat, système d'authentification, espace administrateur et traitement des commandes. Bootstrap a été utilisé pour le responsive design et l'interface utilisateur. Le projet démontre les compétences en développement web full-stack et en gestion de données.</p>
+
+<h2>2. Objectifs du projet</h2>
+<ul>
+  <li>Concevoir et développer une application e-commerce fonctionnelle de bout en bout</li>
+  <li>Implémenter un système de panier avec gestion en SESSION puis persistance en base de données</li>
+  <li>Mettre en place un système d'authentification sécurisé (inscription, connexion, déconnexion)</li>
+  <li>Développer un espace administrateur pour la gestion du catalogue et des commandes</li>
+  <li>Permettre l'upload sécurisé d'images de produits par les administrateurs</li>
+  <li>Gérer les rôles et les permissions (utilisateurs standards vs administrateurs)</li>
+  <li>Assurer une interface responsive et ergonomique avec Bootstrap</li>
+</ul>
+
+<h2>3. Fonctionnalités principales</h2>
+<ul>
+  <li><strong>Catalogue de produits</strong> : affichage des t-shirts depuis la base de données avec images, descriptions et prix</li>
+  <li><strong>Système de panier</strong> : gestion transitoire en SESSION, synchronisation et persistance en base de données</li>
+  <li><strong>Authentification utilisateur</strong> : inscription, connexion sécurisée avec gestion de sessions</li>
+  <li><strong>Profil utilisateur</strong> : consultation de l'historique des commandes et des informations personnelles</li>
+  <li><strong>Système de commandes</strong> : création, validation et suivi des commandes</li>
+  <li><strong>Espace administrateur</strong> : 
+    <ul class="annexe-list">
+      <li>Gestion du catalogue (CRUD complet sur les produits)</li>
+      <li>Upload d'images avec validation et stockage sécurisé</li>
+      <li>Gestion des utilisateurs et des commandes</li>
+      <li>Consultation des statistiques de ventes</li>
+    </ul>
+  </li>
+  <li><strong>Système de rôles</strong> : différenciation entre clients et administrateurs avec contrôle d'accès</li>
+  <li><strong>Interface responsive</strong> : design adapté mobiles et ordinateurs avec Bootstrap</li>
+</ul>
+
+<h2>4. Architecture et modèle de données</h2>
+<table>
+  <tr><th>Table</th><th>Champs principaux</th><th>Description</th></tr>
+  <tr><td><code>utilisateurs</code></td><td>id, email, mot_de_passe, prenom, nom, role, date_inscription</td><td>Comptes utilisateurs et administrateurs</td></tr>
+  <tr><td><code>produits</code></td><td>id, nom, description, prix, image, stock, categorie</td><td>Catalogue de t-shirts</td></tr>
+  <tr><td><code>panier</code></td><td>id, id_utilisateur, id_produit, quantite, date_ajout</td><td>Articles dans les paniers utilisateurs</td></tr>
+  <tr><td><code>commandes</code></td><td>id, id_utilisateur, date_commande, montant_total, statut</td><td>Historique des commandes</td></tr>
+  <tr><td><code>details_commandes</code></td><td>id, id_commande, id_produit, quantite, prix_unitaire</td><td>Détails des articles commandés</td></tr>
+  <tr><td><code>categories</code></td><td>id, nom, description</td><td>Catégorisation des t-shirts (couleurs, styles, etc.)</td></tr>
+</table>
+
+<h2>5. Architecture technique</h2>
+<table>
+  <tr><th>Couche</th><th>Technologie</th><th>Rôle</th></tr>
+  <tr><td>Présentation</td><td>HTML5, CSS3, Bootstrap 5</td><td>Interface utilisateur responsive, composants Bootstrap</td></tr>
+  <tr><td>Interaction client</td><td>JavaScript vanilla</td><td>Validation côté client, interactions dynamiques</td></tr>
+  <tr><td>Logique métier</td><td>PHP 8</td><td>Traitement des formulaires, gestion du panier, commandes</td></tr>
+  <tr><td>Persistance SESSION</td><td>PHP Sessions</td><td>Gestion temporaire du panier avant synchronisation</td></tr>
+  <tr><td>Données</td><td>MySQL / MariaDB</td><td>Stockage utilisateurs, produits, commandes, paniers</td></tr>
+  <tr><td>Sécurité</td><td>PDO + Requêtes préparées</td><td>Protection SQL Injection, données sensibles</td></tr>
+</table>
+
+<h2>6. Système de panier : SESSION vers BDD</h2>
+<p>Le panier fonctionne selon un cycle en deux phases :</p>
+<ul>
+  <li><strong>Phase 1 (Utilisateur non connecté)</strong> : Les articles sont stockés en SESSION (client) pour une première utilisation sans compte</li>
+  <li><strong>Phase 2 (Lors de la connexion)</strong> : Le panier de SESSION est synchronisé vers la table <code>panier</code> en base de données</li>
+  <li><strong>Persistance</strong> : Les modifications ultérieures du panier sont sauvegardées directement en BDD</li>
+  <li><strong>Récupération</strong> : À chaque connexion, le panier est rechargé depuis la base de données</li>
+  <li><strong>Déconnexion</strong> : Le panier reste stocké en BDD pour la prochaine connexion</li>
+</ul>
+
+<h2>7. Sécurité et bonnes pratiques</h2>
+<ul>
+  <li>Utilisation de PDO avec <strong>requêtes préparées</strong> pour prévenir les injections SQL</li>
+  <li>Hachage des mots de passe avec <code>password_hash()</code> (algorithme bcrypt)</li>
+  <li>Vérification des permissions via le système de rôles (client vs admin)</li>
+  <li>Validation des données en entrée (type, longueur, format)</li>
+  <li>Échappement des sorties HTML avec <code>htmlspecialchars()</code> (prévention XSS)</li>
+  <li>Gestion des sessions avec <code>session_start()</code> et détection de CSRF basique</li>
+  <li>Stockage des images en répertoire protégé avec validations MIME type</li>
+  <li>Contrôles d'accès sur les pages administrateur (vérification du rôle)</li>
+</ul>
+
+<h2>8. Upload d'images et gestion des fichiers</h2>
+<ul>
+  <li><strong>Validation MIME type</strong> : vérification que le fichier est bien une image (JPEG, PNG, GIF)</li>
+  <li><strong>Renommage des fichiers</strong> : utilisation d'un identifiant unique ou hash pour éviter les collisions</li>
+  <li><strong>Limite de taille</strong> : restriction de la taille maximale des uploads</li>
+  <li><strong>Répertoire d'upload sécurisé</strong> : stockage en dehors de la racine web ou avec restrictions d'exécution</li>
+  <li><strong>Suppression</strong> : lors de la modification ou suppression d'un produit, l'image ancienne est supprimée du serveur</li>
+</ul>
+
+<h2>9. Gestion des commandes</h2>
+<ul>
+  <li>Validation du panier avant création de commande</li>
+  <li>Calcul automatique du montant total avec taxes le cas échéant</li>
+  <li>Enregistrement des détails de chaque article commandé dans <code>details_commandes</code></li>
+  <li>Mise à jour des stocks après validation de la commande</li>
+  <li>Génération d'un identifiant de commande unique pour le suivi</li>
+  <li>Historique accessible au client et modifiable par l'administrateur</li>
+  <li>Gestion des statuts de commande (en cours, validée, expédiée, livrée)</li>
+</ul>
+
+<h2>10. Compétences BTS SIO SLAM mobilisées</h2>
+<span class="badge comp-tag">Bloc 3 — Présence en ligne</span>
+<span class="badge comp-tag">Bloc 4 — Mode projet</span>
+<span class="badge comp-tag">Bloc 5 — Mise à disposition</span>
+<ul class="annexe-list">
+  <li><strong>Bloc 3</strong> : Développement d'une présence web commerciale, conception d'une interface destinée aux utilisateurs, gestion de données métier</li>
+  <li><strong>Bloc 4</strong> : Planification et exécution du projet en phases, gestion des sources de données, suivi des livrables</li>
+  <li><strong>Bloc 5</strong> : Tests d'intégration de l'application, déploiement sur serveur, documentation des procédures de maintenance</li>
+</ul>
+
+<h2>11. Méthode de gestion de projet : Trello</h2>
+<p>Le projet Threadly a été géré avec <strong>Trello</strong> en utilisant une méthodologie agile. Le tableau de bord inclut :</p>
+<ul>
+  <li><strong>À faire</strong> : backlog initial des fonctionnalités</li>
+  <li><strong>En cours</strong> : tâches actuellement développées</li>
+  <li><strong>À tester</strong> : fonctionnalités prêtes pour QA</li>
+  <li><strong>Terminé</strong> : éléments livrés et validés</li>
+  <li><strong>À venir</strong> : futures améliorations et évolutions</li>
+</ul>
+<p>Au total, <strong>36 tâches</strong> ont été suivies couvrant la conception, le développement, les tests et le déploiement.</p>
+
+<h2>12. Apprentissages clés</h2>
+<ul>
+  <li>Architecture d'une application e-commerce : catalogue, panier, authentification, commandes</li>
+  <li>Gestion du panier avec synchronisation entre SESSION et base de données</li>
+  <li>Sécurisation des transactions et des données sensibles (mots de passe, coordonnées)</li>
+  <li>Système de rôles et permissions pour différencier client et administrateur</li>
+  <li>Upload et manipulation sécurisée de fichiers (images)</li>
+  <li>Design responsive avec Bootstrap pour une meilleure expérience utilisateur</li>
+  <li>Gestion agile d'un projet avec Trello</li>
+  <li>Importance de la validation des données en entrée et sortie</li>
+</ul>
+
+</body>
+</html>
