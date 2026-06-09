@@ -75,7 +75,7 @@ body {
     font-family: var(--font-mono);
     font-size: 13px;
     font-weight: 700;
-    color: #fff;
+    color: var(--text);
     line-height: 1.3;
 }
 
@@ -164,7 +164,7 @@ body {
     font-family: var(--font-mono);
     font-size: 14px;
     font-weight: 700;
-    color: #fff;
+    color: var(--text);
 }
 
 .badge-option-sm {
@@ -184,6 +184,20 @@ body {
     font-size: 20px;
     cursor: pointer;
     padding: 6px;
+}
+
+.theme-toggle-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 14px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color .2s, border-color .2s, background .2s;
 }
 
 .sidebar-overlay {
@@ -220,7 +234,7 @@ body {
 .page-title {
     font-size: 32px;
     font-weight: 600;
-    color: #fff;
+    color: var(--text);
     margin: 0 0 10px;
 }
 
@@ -265,7 +279,7 @@ body {
 .card-dark h5 {
     font-size: 15px;
     font-weight: 600;
-    color: #fff;
+    color: var(--text);
     margin-bottom: 10px;
 }
 
@@ -315,12 +329,12 @@ body {
 .hero-name {
     font-size: 44px;
     font-weight: 600;
-    color: #fff;
+    color: var(--text);
     margin-bottom: 6px;
     line-height: 1.1;
 }
 
-.hero-name span { color:#fff; }
+.hero-name span { color: var(--text); }
 
 .hero-role {
     font-size: 17px;
@@ -381,7 +395,7 @@ body {
 .competence-title {
     font-size: 15px;
     font-weight: 600;
-    color: #fff;
+    color: var(--text);
     flex: 1;
 }
 
@@ -469,7 +483,7 @@ body {
 .realisation-title {
     font-size: 17px;
     font-weight: 600;
-    color: #fff;
+    color: var(--text);
     margin-bottom: 10px;
     padding-right: 90px;
 }
@@ -562,7 +576,7 @@ body {
 }
 
 .doc-upload-zone h5 {
-    color: #fff;
+    color: var(--text);
     font-size: 17px;
     margin-bottom: 8px;
 }
@@ -598,7 +612,7 @@ body {
     flex: 1;
     font-weight: 600;
     font-size: 14px;
-    color: #fff;
+    color: var(--text);
 }
 
 .doc-folder-count {
@@ -709,9 +723,9 @@ body {
 
     .hero-name { font-size: 28px; }
     .hero-section { padding: 32px 24px; }
+}
 
 .theme-toggle-btn:hover { color: var(--accent); border-color: var(--accent); }
-}
 
 body.light-theme {
     --dark:         #f0f4f8;
@@ -723,22 +737,6 @@ body.light-theme {
     --text-muted:   #64748b;
     --accent:       #0891b2;
     --accent-dim:   #0e7490;
-}
-
-/* Remplace */
-.page-title {
-    font-size: 32px;
-    font-weight: 600;
-    color: #fff;   /* ← ici le problème */
-    margin: 0 0 10px;
-}
-
-/* Par */
-.page-title {
-    font-size: 32px;
-    font-weight: 600;
-    color: var(--text);   /* ✓ suit le thème */
-    margin: 0 0 10px;
 }
 
 h1, h2, h3, h4, h5, h6 {
