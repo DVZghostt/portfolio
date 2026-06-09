@@ -176,7 +176,8 @@
   }
 
   /* Bouton Actualiser */
-  .btn-refresh {
+  .btn-refresh,
+  .btn-load-more {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -190,8 +191,14 @@
     cursor: pointer;
     transition: all .18s;
   }
-  .btn-refresh:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+  .btn-refresh:hover,
+  .btn-load-more:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
   .btn-refresh:disabled { opacity: .5; cursor: not-allowed; }
+
+  .more-actions {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
 
   /* Encart d'erreur global */
   .global-error {
@@ -303,6 +310,10 @@
 
     <!-- Grille d'articles -->
     <div class="news-grid" id="news-grid" role="list" aria-live="polite"></div>
+
+    <div class="more-actions hidden" id="more-actions">
+      <button class="btn-load-more" id="btn-show-more" type="button">Afficher les autres articles</button>
+    </div>
 
   </div><!-- /#veille-content -->
 

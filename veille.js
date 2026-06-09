@@ -59,6 +59,8 @@ const GOOGLE_NEWS_RSS = {
 let allArticles = { ia: [] };
 let currentTab  = 'ia';
 let searchQuery = '';
+let showAll = false;
+const MAX_VISIBLE_ARTICLES = 10;
 
 /* ══════════════════════════════════════════════════════════
    UTILITAIRES
@@ -340,9 +342,26 @@ function renderArticles() {
   if (filtered.length === 0) {
     grid.innerHTML = '';
     emptyEl.classList.remove('hidden');
+    updateShowMoreButton(0);
+    return;
+  }
+
+  emptyEl.classList.add('hidden');
+  const visibleArticles = showAll ? filtered : filtered.slice(0, MAX_VISIBLE_ARTICLES);
+  grid.innerHTML = visibleArticles.map(buildCard).join('');
+  updateShowMoreButton(filtered.length);
+}
+
+function updateShowMoreButton(filteredCount) {
+  const moreActions = document.getElementById('more-actions');
+  const showMoreBtn = document.getElementById('btn-show-more');
+  if (!moreActions || !showMoreBtn) return;
+
+  if (filteredCount > MAX_VISIBLE_ARTICLES) {
+    moreActions.classList.remove('hidden');
+    showMoreBtn.textContent = showAll ? 'Réduire la liste' : 'Afficher les autres articles';
   } else {
-    emptyEl.classList.add('hidden');
-    grid.innerHTML = filtered.map(buildCard).join('');
+    moreActions.classList.add('hidden');
   }
 }
 
@@ -416,6 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       currentTab = 'ia';
+      showAll = false;
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
@@ -445,12 +465,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Bouton Afficher plus / réduire
+  const showMoreBtn = document.getElementById('btn-show-more');
+  if (showMoreBtn) {
+    showMoreBtn.addEventListener('click', () => {
+      showAll = !showAll;
+      renderArticles();
+    });
+  }
+
   // Bouton Actualiser
   const refreshBtn = document.getElementById('btn-refresh');
   if (refreshBtn) {
     refreshBtn.addEventListener('click', () => {
       searchQuery = '';
       if (searchInput) searchInput.value = '';
+      showAll = false;
       initVeille();
     });
   }
