@@ -4,7 +4,6 @@ function renderNav(activePage) {
     { href: 'competences.html', label: 'Compétences' },
     { href: 'projets.html', label: 'Projets' },
     { href: 'certifications.html', label: 'Certifications' },
-    { href: 'veille.html', label: 'Veille techno' },
   ];
   const links = pages.map(p =>
     `<a href="${p.href}" class="${p.href === activePage ? 'active' : ''}">${p.label}</a>`
