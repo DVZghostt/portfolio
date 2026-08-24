@@ -29,9 +29,10 @@ const CONFIG = {
 
   // Proxies CORS essayés en ordre pour le fallback Google News RSS
   CORS_PROXIES: [
+    // Jina.ai retourne le contenu brut d'une URL et est souvent fiable
+    'https://r.jina.ai/http://',
     'https://api.allorigins.win/raw?url=',
     'https://corsproxy.io/?',
-    'https://cors-anywhere.herokuapp.com/',
   ],
 };
 
@@ -184,8 +185,7 @@ function parseRSSXML(xmlText, category, sourceName) {
     if (doc.querySelector('parsererror')) {
       console.warn('[RSS] Erreur de parsing XML');
       return [];
-    }
-
+    });
     return Array.from(doc.querySelectorAll('item'))
       .map(item => {
         const title   = item.querySelector('title')?.textContent?.trim()   || '';
@@ -230,11 +230,32 @@ function parseRSSXML(xmlText, category, sourceName) {
  * S'arrête au premier succès.
  */
 async function fetchRSSWithProxy(rssUrl, category) {
+  // 1) Tentative directe (parfois possible si le serveur cible autorise CORS)
+  try {
+    const resp = await fetch(rssUrl, {
+      signal: AbortSignal.timeout(10000),
+      headers: { 'Accept': 'application/rss+xml, application/xml, text/xml, */*' },
+    });
+    if (resp.ok) {
+      const text = await resp.text();
+      if (text.includes('<item') || text.includes('<entry') || text.includes('<rss') || text.includes('<feed')) {
+        const articles = parseRSSXML(text, category, 'Google News');
+        if (articles.length > 0) {
+          console.info('[RSS] ✅ Succès via fetch direct');
+          return articles;
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('[RSS] Tentative directe échouée :', err.message);
+  }
+
+  // 2) Tentatives via proxies listés
   for (const proxy of CONFIG.CORS_PROXIES) {
     const proxyUrl = proxy + encodeURIComponent(rssUrl);
     try {
       const resp = await fetch(proxyUrl, {
-        signal:  AbortSignal.timeout(10000),
+        signal: AbortSignal.timeout(10000),
         headers: { 'Accept': 'application/rss+xml, application/xml, text/xml, */*' },
       });
 
@@ -244,7 +265,7 @@ async function fetchRSSWithProxy(rssUrl, category) {
       }
 
       const text = await resp.text();
-      if (!text.includes('<item') && !text.includes('<entry')) {
+      if (!text.includes('<item') && !text.includes('<entry') && !text.includes('<feed') && !text.includes('<rss')) {
         console.warn(`[RSS] Proxy "${proxy}" → réponse non RSS`);
         continue;
       }
@@ -280,7 +301,18 @@ async function loadCategory(category) {
   // ② Fallback RSS si GNews est vide (clé absente ou erreur)
   if (articles.length === 0) {
     console.info(`[Veille] GNews vide pour "${category}", tentative RSS…`);
-    articles = await fetchRSSWithProxy(GOOGLE_NEWS_RSS[category], category);
+    const fetched = await fetchRSSWithProxy(GOOGLE_NEWS_RSS[category], category);
+
+    // Préférence pour les articles récents ; si aucun récent, on accepte les plus anciens
+    const recent = fetched.filter(a => isRecent(a.date));
+    if (recent.length > 0) {
+      articles = recent;
+    } else if (fetched.length > 0) {
+      console.info('[Veille] Aucun article récent trouvé via RSS — utilisation d’articles plus anciens');
+      articles = fetched;
+    } else {
+      articles = [];
+    }
   }
 
   return deduplicate(articles).sort((a, b) => new Date(b.date) - new Date(a.date));
