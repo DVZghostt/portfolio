@@ -5,7 +5,16 @@
   --blue-mid: #378ADD;
   --teal: #0F6E56;
   --teal-light: #E1F5EE;
-  /* Veille styles removed (feature deleted) */
+  
+  /* ── VEILLE ── */
+.veille-card {
+  background: var(--white); border-radius: var(--radius);
+  border: 0.5px solid var(--gray-border); padding: 1.25rem 1.5rem;
+}
+.veille-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 0.75rem; }
+.veille-card h4 { font-size: 14px; font-weight: 600; line-height: 1.4; }
+.veille-date { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+.veille-card .vcontent { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 .page-header .eyebrow {
   font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
   opacity: 0.7; margin-bottom: 0.5rem;
@@ -63,7 +72,6 @@
   font-size: 13px; color: var(--text-muted); line-height: 1.65;
 }
 .collapse-body.open { display: block; }
-/* Veille styles removed (feature deleted) */
 /* ── PROGRESS BAR ── */
 .progress-bar-wrap { background: var(--gray-bg); border-radius: 4px; height: 6px; margin-top: 8px; }
 .progress-bar { height: 6px; border-radius: 4px; background: var(--blue); }
